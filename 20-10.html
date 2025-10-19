@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Chúc mừng 20/10 ❤️</title>
+  <meta name="description" content="Một lời chúc 20/10 dành tặng em yêu" />
+  <!-- Open Graph để khi share link lên mạng xã hội có preview đẹp -->
+  <meta property="og:title" content="Chúc mừng 20/10 ❤️" />
+  <meta property="og:description" content="Một lời chúc 20/10 dành tặng em yêu" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="" />
+  <style>
+    :root{
+      --bg1: #ffecd2;
+      --bg2: #fcb69f;
+      --accent: #ff4466;
+      --card: rgba(255,255,255,0.9);
+      --glass: rgba(255,255,255,0.18);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,'Helvetica Neue',Arial}
+    body{
+      background: linear-gradient(135deg,var(--bg1),var(--bg2));
+      display:flex;align-items:center;justify-content:center;padding:24px;
+    }
+    .card{
+      width:100%;max-width:760px;background:var(--card);border-radius:20px;box-shadow:0 10px 30px rgba(0,0,0,0.15);padding:32px;position:relative;overflow:hidden;
+    }
+    .header{display:flex;align-items:center;gap:16px}
+    .logo{
+      width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,#fff6f8,#ffdbe6);display:flex;align-items:center;justify-content:center;font-size:34px;color:var(--accent);box-shadow:0 6px 18px rgba(255,68,102,0.18);
+    }
+    h1{margin:0;font-size:28px;color:#333}
+    p.lead{color:#444;margin-top:6px}
+
+    .heart{
+      position:absolute;right:-80px;top:-60px;font-size:220px;color:rgba(255,68,102,0.06);transform:rotate(-15deg);
+    }
+
+    .reveal{
+      margin-top:22px;background:linear-gradient(90deg,#fff,#fff);padding:20px;border-radius:14px;border:1px solid rgba(0,0,0,0.04);text-align:center;min-height:140px;display:flex;align-items:center;justify-content:center;flex-direction:column;
+    }
+    .message{font-size:20px;color:#222;line-height:1.4;max-width:640px}
+
+    .btn{
+      display:inline-block;margin-top:14px;background:var(--accent);color:white;padding:10px 18px;border-radius:999px;border:none;cursor:pointer;font-weight:600;box-shadow:0 8px 20px rgba(255,68,102,0.18);
+    }
+
+    .controls{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:14px}
+
+    .meta{margin-top:18px;font-size:13px;color:#555;text-align:center}
+
+    /* confetti pieces */
+    .confetti-piece{position:fixed;width:10px;height:16px;opacity:0;pointer-events:none;z-index:9999}
+
+    /* small responsive tweaks */
+    @media (max-width:520px){.header{gap:10px}.logo{width:56px;height:56px;font-size:26px}h1{font-size:22px}.reveal{min-height:120px}}
+  </style>
+</head>
+<body>
+  <div class="card" id="card">
+    <div class="heart">❤</div>
+    <div class="header">
+      <div class="logo">20</div>
+      <div>
+        <h1>Chúc mừng 20/10 — Dành tặng em ❤️</h1>
+        <p class="lead">Một lời chúc nhỏ, một vòng ôm ấm — chúc em luôn xinh, hạnh phúc và mãi là người đặc biệt của anh.</p>
+      </div>
+    </div>
+
+    <div class="reveal" id="reveal">
+      <div class="message" id="message">Nhấn nút để mở lời chúc bất ngờ từ anh nhé ♥</div>
+      <div class="controls">
+        <button class="btn" id="openBtn">Mở lời chúc</button>
+      
+      </div>
+    </div>
+  </div>
+
+  <template id="confettiTemplate">
+    <div class="confetti-piece"></div>
+  </template>
+
+  <script>
+    // ====== CÁ NHÂN HÓA LỜI CHÚC ======
+    // Thay nội dung messagePersonal bằng lời chúc bạn muốn gửi.
+    // Bạn cũng có thể giữ phần placeholder và để người nhận nhấn để hiện.
+    const messagePersonal = `Em yêu ơi,\n\nChúc em một ngày 20/10 thật rực rỡ — luôn xinh tươi, ngập tràn tiếng cười và được yêu thương mỗi ngày. Cảm ơn em đã đến bên anh, cùng anh xây nên những kỷ niệm đẹp.\n\nYêu em rất nhiều. — Anh ❤`;
+
+    // ====== SELECT ELEMENTS SAFELY ======
+    const openBtn = document.getElementById('openBtn');
+    const messageEl = document.getElementById('message');
+    const reveal = document.getElementById('reveal');
+ 
+
+    // Guard: nếu phần tử không tồn tại, không thêm listener để tránh lỗi
+    let opened = false;
+
+    if (openBtn) {
+      openBtn.addEventListener('click', ()=>{
+        if(opened) return;
+        opened = true;
+        // animate text reveal
+        messageEl.style.opacity = 0;
+        setTimeout(()=>{
+          // chuyển xuống dạng pre-like
+          messageEl.innerHTML = '<pre style="white-space:pre-wrap;text-align:left;margin:0;font-family:inherit">'+escapeHtml(messagePersonal)+'</pre>';
+          messageEl.style.opacity = 1;
+        },300);
+        launchConfetti(60);
+        // gentle scale animation for card
+        const card = document.getElementById('card');
+        if(card && card.animate){
+          card.animate([
+            { transform: 'scale(1)' },
+            { transform: 'scale(1.015)' },
+            { transform: 'scale(1)' }
+          ],{ duration: 700, easing:'ease-out' })
+        }
+      });
+    }
+
+
+
+    // If page loaded with ?msg=..., show message automatically
+    window.addEventListener('load', ()=>{
+      const params = new URLSearchParams(location.search);
+      if(params.has('msg')){
+        const text = params.get('msg');
+        if(text){
+          // decode and set message
+          messageEl.innerHTML = '<pre style="white-space:pre-wrap;text-align:left;margin:0;font-family:inherit">'+escapeHtml(decodeURIComponent(text))+'</pre>';
+          // run confetti a little
+          setTimeout(()=>launchConfetti(40),120);
+          // mark as opened so Enter doesn't re-open
+          opened = true;
+        }
+      }
+    });
+
+    // ====== CONFETTI (nhẹ) ======
+    function launchConfetti(amount){
+      const template = document.getElementById('confettiTemplate');
+      for(let i=0;i<amount;i++){
+        const node = template.content.firstElementChild.cloneNode(true);
+        document.body.appendChild(node);
+        const el = node;
+        el.style.left = Math.random()*100 + '%';
+        el.style.top = '-10%';
+        el.style.background = randomColor();
+        el.style.transform = 'translateY(0) rotate('+ (Math.random()*360)+'deg)';
+        el.style.opacity = 1;
+        const fall = el.animate([
+          { transform: `translateY(0) rotate(${Math.random()*360}deg)`, opacity:1 },
+          { transform: `translateY(${window.innerHeight + 200}px) rotate(${Math.random()*1080}deg)`, opacity:0.8 }
+        ], { duration: 2000+Math.random()*2000, easing:'cubic-bezier(.2,.7,.2,1)' });
+        // remove after animation
+        fall.onfinish = ()=> el.remove();
+      }
+    }
+
+    function randomColor(){
+      const colors = ['#ff6b81','#ffd166','#6bf178','#7ac7ff','#f78cff','#ffb3c6','#ffd3a5'];
+      return colors[Math.floor(Math.random()*colors.length)];
+    }
+
+    function escapeHtml(str){
+      return str.replace(/[&<>\"']/g, function(tag) {
+        const charsToReplace = {
+          '&': '&amp;',
+          '<': '&lt;',
+          '>': '&gt;',
+          '"': '&quot;',
+          "'": '&#39;'
+        };
+        return charsToReplace[tag] || tag;
+      });
+    }
+
+    // Optional: keyboard shortcut to open (for fun)
+    window.addEventListener('keydown', (e)=>{
+      if(e.key === 'Enter' && !opened && openBtn){ openBtn.click(); }
+    });
+  </script>
+</body>
+</html>
