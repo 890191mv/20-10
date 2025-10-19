@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>🌸 Lời Chúc 20/10 Dành Tặng Phái Đẹp 🌸</title>
+  <meta name="description" content="Những lời chúc ngọt ngào, trân trọng gửi đến các bà, mẹ, chị, em nhân ngày Phụ Nữ Việt Nam 20/10 💐" />
+  <meta property="og:title" content="🌸 Lời Chúc 20/10 Dành Tặng Phái Đẹp 🌸" />
+  <meta property="og:description" content="Những lời chúc ngọt ngào, trân trọng gửi đến các bà, mẹ, chị, em nhân ngày Phụ Nữ Việt Nam 20/10 💐" />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="https://i.imgur.com/wzv0j7Z.jpeg" />
+  <style>
+    :root {
+      --bg1: #fdfbfb;
+      --bg2: #ebedee;
+      --accent: #e91e63;
+      --glass: rgba(255,255,255,0.25);
+      --text: #333;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0;
+      height: 100%;
+      font-family: 'Poppins', 'Segoe UI', sans-serif;
+      background: linear-gradient(135deg, var(--bg1), var(--bg2));
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+    }
+
+    .card {
+      position: relative;
+      background: var(--glass);
+      backdrop-filter: blur(18px);
+      border-radius: 24px;
+      padding: 40px 30px;
+      text-align: center;
+      color: var(--text);
+      width: 90%;
+      max-width: 650px;
+      box-shadow: 0 15px 45px rgba(0,0,0,0.2);
+      animation: fadeIn 1.2s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(40px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: 2.2em;
+      margin: 0;
+      color: #e91e63;
+      text-shadow: 0 3px 8px rgba(0,0,0,0.15);
+    }
+
+    .lead {
+      margin: 10px 0 30px;
+      font-size: 1.1em;
+      color: #555;
+    }
+
+    button.btn {
+      background: var(--accent);
+      border: none;
+      color: #fff;
+      padding: 12px 28px;
+      font-size: 1em;
+      font-weight: 600;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: 0.3s;
+      box-shadow: 0 10px 25px rgba(233,30,99,0.4);
+    }
+    button.btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 12px 28px rgba(233,30,99,0.55);
+    }
+
+    .message {
+      white-space: pre-wrap;
+      text-align: left;
+      margin-top: 20px;
+      font-size: 1.1em;
+      background: rgba(255,255,255,0.9);
+      border-radius: 16px;
+      padding: 20px;
+      box-shadow: inset 0 2px 8px rgba(0,0,0,0.1);
+      color: #444;
+      display: none;
+      animation: slideUp 0.8s ease forwards;
+    }
+
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .flower {
+      position: absolute;
+      font-size: 180px;
+      color: rgba(233,30,99,0.08);
+      top: -40px;
+      right: -30px;
+      transform: rotate(-15deg);
+      pointer-events: none;
+    }
+
+    .confetti-piece {
+      position: fixed;
+      width: 10px;
+      height: 16px;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+  <div class="card" id="card">
+    <div class="flower">🌸</div>
+    <h1>🌺 Chúc Mừng Ngày Phụ Nữ Việt Nam 20/10 🌺</h1>
+    <p class="lead">Gửi đến các bác, mẹ, chị và em gái – những bông hoa rực rỡ nhất của cuộc đời 💖</p>
+    <button id="openBtn" class="btn">Xem Lời Chúc</button>
+    <div id="message" class="message"></div>
+  </div>
+
+  <template id="confettiTemplate">
+    <div class="confetti-piece"></div>
+  </template>
+
+  <script>
+    const message = `💐 Nhân ngày 20/10, xin gửi những lời chúc tốt đẹp nhất đến một nửa yêu thương của thế giới!
+
+🌷 Chúc các bác luôn mạnh khỏe, bình an và hạnh phúc.
+🌸 Chúc mẹ luôn mạnh khỏe, rạng rỡ, vui vẻ và bình an.
+🌼 Chúc các chị, các em luôn xinh đẹp, tự tin và thành công trong cuộc sống.
+
+💖 Ngày 20/10 là dịp để trân trọng, biết ơn và gửi yêu thương 💖`;
+
+    const openBtn = document.getElementById('openBtn');
+    const messageBox = document.getElementById('message');
+
+    openBtn.addEventListener('click', () => {
+      messageBox.textContent = message;
+      messageBox.style.display = 'block';
+      launchConfetti(100);
+      openBtn.style.display = 'none';
+    });
+
+    function launchConfetti(amount) {
+      const template = document.getElementById('confettiTemplate');
+      for (let i = 0; i < amount; i++) {
+        const node = template.content.firstElementChild.cloneNode(true);
+        document.body.appendChild(node);
+        const el = node;
+        el.style.left = Math.random() * 100 + '%';
+        el.style.top = '-10%';
+        el.style.background = randomColor();
+        el.style.opacity = 1;
+        const fall = el.animate([
+          { transform: `translateY(0) rotate(${Math.random() * 360}deg)`, opacity: 1 },
+          { transform: `translateY(${window.innerHeight + 200}px) rotate(${Math.random() * 1080}deg)`, opacity: 0.8 }
+        ], { duration: 3000 + Math.random() * 2000, easing: 'cubic-bezier(.2,.7,.2,1)' });
+        fall.onfinish = () => el.remove();
+      }
+    }
+
+    function randomColor() {
+      const colors = ['#e91e63', '#ffb6c1', '#ffd54f', '#81c784', '#64b5f6', '#ba68c8', '#ff8a65'];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+  </script>
+</body>
+</html>
